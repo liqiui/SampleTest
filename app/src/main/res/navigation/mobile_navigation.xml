@@ -23,11 +23,18 @@
         <argument
             android:name="user"
             app:argType="com.example.sampletest.data.User" />
+        <action
+            android:id="@+id/action_showPhoto"
+            app:destination="@id/navigation_photo" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.sampletest.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_photo"
+        android:name="com.example.sampletest.ui.photo.PhotoFragment"
+        android:label="@string/title_photo"
+        tools:layout="@layout/fragment_photo">
+        <argument
+            android:name="photo"
+            app:argType="com.example.sampletest.data.Photo" />
+    </fragment>
 </navigation>

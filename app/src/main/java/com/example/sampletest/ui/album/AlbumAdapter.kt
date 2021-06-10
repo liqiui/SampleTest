@@ -9,8 +9,12 @@ import com.example.sampletest.data.Photo
 import com.example.sampletest.data.User
 import com.example.sampletest.databinding.AlbumItemBinding
 import com.example.sampletest.databinding.UserItemBinding
+import com.example.sampletest.ui.user.UserAdapter
 
-class AlbumAdapter: ListAdapter<Photo, AlbumAdapter.AlbumItemHolder>(DiffCallback) {
+class AlbumAdapter(private val onClickListener: AlbumAdapter.OnClickListener): ListAdapter<Photo, AlbumAdapter.AlbumItemHolder>(DiffCallback) {
+    class OnClickListener(val clickListener: (photo: Photo) -> Unit) {
+        fun onClick( photo: Photo) = clickListener( photo)
+    }
 
     class AlbumItemHolder(private var binding: AlbumItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: Photo) {
@@ -25,6 +29,9 @@ class AlbumAdapter: ListAdapter<Photo, AlbumAdapter.AlbumItemHolder>(DiffCallbac
 
     override fun onBindViewHolder(holder: AlbumItemHolder, position: Int) {
         val photo = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(photo)
+        }
         holder.bind(photo)
     }
 

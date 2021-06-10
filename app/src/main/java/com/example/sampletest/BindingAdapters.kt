@@ -25,11 +25,23 @@ fun bindAlbumData(recyclerView: RecyclerView,
 }
 
 @BindingAdapter("thumbnailUrl")
-fun bindImageThumbnailView(imageView: ImageView, thumbnailUrl: String?) {
+fun bindThumbnailView(imageView: ImageView, thumbnailUrl: String?) {
     thumbnailUrl?.let {
         val imageUri = thumbnailUrl.toUri().buildUpon().scheme("https").build()
         Picasso.get().load(imageUri)
                 .fit()
+                .centerCrop()
+                .into(imageView)
+    }
+}
+
+@BindingAdapter("imageUrl")
+fun bindImageView(imageView: ImageView, imageUrl: String?) {
+    imageUrl?.let {
+        val imageUri = imageUrl.toUri().buildUpon().scheme("https").build()
+        Picasso.get().load(imageUri)
+                .fit()
+                .centerCrop()
                 .into(imageView)
     }
 }

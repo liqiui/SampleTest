@@ -8,11 +8,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.sampletest.R
 import com.example.sampletest.data.User
 import com.example.sampletest.databinding.FragmentAlbumBinding
 import com.example.sampletest.databinding.FragmentUserBinding
 import com.example.sampletest.ui.user.UserAdapter
+import com.example.sampletest.ui.user.UserFragmentDirections
 import com.example.sampletest.ui.user.UserViewModel
 
 class AlbumFragment : Fragment() {
@@ -37,7 +39,18 @@ class AlbumFragment : Fragment() {
         binding.viewModel = ViewModelProvider(
             this, viewModelFactory).get(AlbumViewModel::class.java)
 
-        binding.photoList.adapter = AlbumAdapter()
+        binding.photoList.adapter = AlbumAdapter(AlbumAdapter.OnClickListener {
+            albumViewModel.displayPhoto(it)
+        })
+
+        albumViewModel.selectedPhoto.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                this.findNavController().navigate(
+                        AlbumFragmentDirections.actionShowPhoto(it))
+                albumViewModel.displayPhotoComplete()
+            }
+        })
+
         return binding.root
     }
 }
