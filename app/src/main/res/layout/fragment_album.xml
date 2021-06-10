@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:gravity="center"
-            android:text="@{String.format(`Album ID: %s`, viewModel.albumData[0].albumId)}"
+            android:text="@{String.format(`Album ID: %s`, viewModel.photoData[0].albumId)}"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@id/photoList"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_id"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="LinearLayoutManager"
-            app:albumData="@{viewModel.albumData}"
+            app:albumData="@{viewModel.photoData}"
             tools:listitem="@layout/album_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -33,7 +33,7 @@ class AlbumFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Giving the binding access to the OverviewViewModel
-        val data = User(id = 2)
+        val data = User(id = 1)
         val viewModelFactory = AlbumViewModel.Factory( data, application)
         binding.viewModel = ViewModelProvider(
             this, viewModelFactory).get(AlbumViewModel::class.java)
