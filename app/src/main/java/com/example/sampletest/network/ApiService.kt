@@ -20,7 +20,7 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
     @GET("users")
-    suspend fun getDataCoroutine(): List<User>
+    suspend fun getUserInfoCoroutine(): List<User>
 }
 
 object Api {
