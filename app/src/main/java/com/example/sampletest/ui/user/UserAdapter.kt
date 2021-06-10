@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sampletest.data.User
 import com.example.sampletest.databinding.UserItemBinding
 
-class UserAdapter: ListAdapter<User, UserAdapter.UserItemHolder>(DiffCallback) {
+class UserAdapter(private val onClickListener: OnClickListener): ListAdapter<User, UserAdapter.UserItemHolder>(DiffCallback) {
+    class OnClickListener(val clickListener: (user: User) -> Unit) {
+        fun onClick( user: User) = clickListener( user)
+    }
 
     class UserItemHolder(private var binding: UserItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
@@ -23,6 +26,9 @@ class UserAdapter: ListAdapter<User, UserAdapter.UserItemHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: UserItemHolder, position: Int) {
         val user = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(user)
+        }
         holder.bind(user)
     }
 

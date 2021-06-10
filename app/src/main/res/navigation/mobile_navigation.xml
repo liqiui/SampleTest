@@ -3,19 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_album">
+    app:startDestination="@+id/navigation_user">
 
     <fragment
         android:id="@+id/navigation_user"
         android:name="com.example.sampletest.ui.user.UserFragment"
         android:label="@string/title_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user">
+        <action
+            android:id="@+id/action_showAlbum"
+            app:destination="@id/navigation_album" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_album"
         android:name="com.example.sampletest.ui.album.AlbumFragment"
         android:label="@string/title_album"
-        tools:layout="@layout/fragment_album" />
+        tools:layout="@layout/fragment_album">
+        <argument
+            android:name="user"
+            app:argType="com.example.sampletest.data.User" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"

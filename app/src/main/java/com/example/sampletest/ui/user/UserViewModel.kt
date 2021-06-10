@@ -15,14 +15,26 @@ import kotlinx.coroutines.launch
 class UserViewModel : ViewModel() {
     // The internal MutableLiveData User Data that stores the most recent data
     private val _userData = MutableLiveData<List<User>>()
+    private val _selectedUser = MutableLiveData<User?>()
 
     // The external immutable LiveData for the response User Data
     val userData: LiveData<List<User>>
         get() = _userData
+    val selectedUser: LiveData<User?>
+        get() = _selectedUser
+
 
     init {
 //        getUserDataFromSample()
         getUserDataFromNetworkCoroutine()
+    }
+
+    fun displayAlbum(user: User) {
+        _selectedUser.value = user
+    }
+
+    fun displayAlbumComplete() {
+        _selectedUser.value = null
     }
 
     private fun getUserDataFromSample() {

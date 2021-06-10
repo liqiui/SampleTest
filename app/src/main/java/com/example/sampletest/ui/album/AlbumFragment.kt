@@ -32,8 +32,7 @@ class AlbumFragment : Fragment() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the OverviewViewModel
-        val data = User(id = 1)
+        val data = AlbumFragmentArgs.fromBundle(requireArguments()).user
         val viewModelFactory = AlbumViewModel.Factory( data, application)
         binding.viewModel = ViewModelProvider(
             this, viewModelFactory).get(AlbumViewModel::class.java)
