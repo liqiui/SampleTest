@@ -7,12 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.sampletest.data.User
 import com.example.sampletest.data.sampleUserData
 import com.example.sampletest.network.Api
+import com.example.sampletest.network.ApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.launch
 
-class UserViewModel : ViewModel() {
+class UserViewModel(val apiService: ApiService = Api.retrofitService) : ViewModel() {
     // The internal MutableLiveData User Data that stores the most recent data
     private val _userData = MutableLiveData<List<User>>()
     private val _selectedUser = MutableLiveData<User?>()
@@ -50,7 +51,7 @@ class UserViewModel : ViewModel() {
     private fun getUserDataFromNetworkCoroutine() {
         viewModelScope.launch {
             try {
-                _userData.value = Api.retrofitService.getUserInfoCoroutine()
+                _userData.value = apiService.getUserInfoCoroutine()
             } catch (e: Exception) {
                 _userData.value = emptyList()
             }
