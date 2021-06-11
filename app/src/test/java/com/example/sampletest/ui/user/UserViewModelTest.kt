@@ -22,9 +22,6 @@ import org.spekframework.spek2.style.specification.describe
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 class UserViewModelTest: Spek({
-    val mockApplication = mockk<Application>() {
-        every { applicationContext } returns mockk()
-    }
     val users = listOf(User(id = 1), User(id = 2), User(id = 3))
     val photos = listOf(Photo(id = 111), Photo(id = 222), Photo(id = 333))
     val mockApiService = MockApiService(users, photos)
