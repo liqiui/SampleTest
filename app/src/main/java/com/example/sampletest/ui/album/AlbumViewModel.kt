@@ -6,12 +6,13 @@ import com.example.sampletest.data.Photo
 import com.example.sampletest.data.User
 import com.example.sampletest.data.sampleAlbumData
 import com.example.sampletest.network.Api
+import com.example.sampletest.network.ApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.launch
 
-class AlbumViewModel(val user: User, app: Application): AndroidViewModel(app) {
+class AlbumViewModel(val apiService: ApiService = Api.retrofitService, val user: User, app: Application): AndroidViewModel(app) {
     // The internal MutableLiveData album Data that stores the most recent data
     private val _albumData = MutableLiveData<List<Photo>>()
     private val _selectedPhoto = MutableLiveData<Photo?>()
@@ -61,7 +62,7 @@ class AlbumViewModel(val user: User, app: Application): AndroidViewModel(app) {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AlbumViewModel::class.java)) {
-                return AlbumViewModel( user, app) as T
+                return AlbumViewModel( user = user, app = app) as T
             }
             throw IllegalArgumentException("Unknown View class")
         }
