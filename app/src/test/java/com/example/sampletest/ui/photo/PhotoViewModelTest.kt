@@ -25,12 +25,30 @@ class PhotoViewModelTest: Spek({
     }
     val photo = Photo(id = 111)
     lateinit var photoViewModel: PhotoViewModel
+    val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     beforeGroup {
+        Dispatchers.setMain(mainThreadSurrogate)
+        ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor() {
+            override fun executeOnDiskIO(runnable: Runnable) {
+                runnable.run()
+            }
+
+            override fun isMainThread(): Boolean {
+                return true
+            }
+
+            override fun postToMainThread(runnable: Runnable) {
+                runnable.run()
+            }
+        })
         photoViewModel = spyk(PhotoViewModel(photo = photo, app = mockApplication))
     }
 
     afterGroup {
+        ArchTaskExecutor.getInstance().setDelegate(null)
+        Dispatchers.resetMain()
+        mainThreadSurrogate.close()
     }
 
     describe("init") {

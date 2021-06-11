@@ -1,7 +1,5 @@
 package com.example.sampletest
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.sampletest.data.Photo
 import com.example.sampletest.data.User
 import com.example.sampletest.network.ApiService
